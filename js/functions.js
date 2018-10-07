@@ -2,6 +2,42 @@
  * 
  */
 
+function showAddRoutes() {
+    $('#main').hide();
+    $('#addRoutes').show();
+    $('#updateRoutes').hide();
+    $('#addFareList').hide();
+    $('#updateFareList').hide();
+}
+function showUpdateRoutes() {
+    $('#main').hide();
+    $('#addRoutes').hide();
+    $('#updateRoutes').show();
+    $('#addFareList').hide();
+    $('#updateFareList').hide();
+}
+function showAddFareList() {
+    $('#main').hide();
+    $('#addRoutes').hide();
+    $('#updateRoutes').hide();
+    $('#addFareList').show();
+    $('#updateFareList').hide();
+}
+function showUpdateFareList() {
+    $('#main').hide();
+    $('#addRoutes').hide();
+    $('#updateRoutes').hide();
+    $('#addFareList').hide();
+    $('#updateFareList').show();
+}
+function backToMenu() {
+    $('#main').show();
+    $('#addRoutes').hide();
+    $('#updateRoutes').hide();
+    $('#addFareList').hide();
+    $('#updateFareList').hide();
+}
+
 var routes = [];
 var routeNumList = [];
 var fareList = {};
@@ -14,7 +50,7 @@ var currentRoute = {
 var currentHaltNum = 0;
 var currentHaltDetails = {};
 
-function initializeData(){
+function initializeData() {
     console.log("initializeData()");
     routes = [];
     routeNumList = [];
@@ -29,12 +65,12 @@ function initializeData(){
     currentHaltDetails = {};
 }
 
-function addNewRoute(){
+function addNewRoute() {
     initializeData();
     let routeNum = $("#routeNum_add").val();
     let routeName = $("#routeName_add").val();
 
-    if(routeNum.length>0){
+    if (routeNum.length > 0) {
         currentRoute.busRouteNumber = routeNum;
         currentRoute.busRouteName = routeName;
         saveRoute();
@@ -171,12 +207,12 @@ function incHaltNum() {
 
         if ((currentHaltNum) >= currentRoute.haltList.length) {
             $("#incBtn").html("Add");
-        }else{
+        } else {
             $("#incBtn").html("Next");
         }
 
         getCurrentHaltDetails(currentHaltNum);
-    }else{
+    } else {
         alert("Halt name is reqired");
     }
 };
@@ -214,10 +250,10 @@ function backRoute() {
 
     console.log("routes");
     console.log(routes);
-    
+
 }
 
-function saveRoute(){
+function saveRoute() {
     jQuery.ajax({
         url: "http://localhost:9090/route/add",
         type: "POST",
