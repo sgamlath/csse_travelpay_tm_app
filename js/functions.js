@@ -67,6 +67,8 @@ function initializeData() {
 }
 
 function addNewRoute() {
+    console.log("addNewRoute()");
+
     initializeData();
     let routeNum = $("#routeNum_add").val();
     let routeName = $("#routeName_add").val();
@@ -81,6 +83,7 @@ function addNewRoute() {
 }
 
 function deleteRoute() {
+    console.log("deleteRoute()");
     currentRoute.active = false;
     saveRoute();
 
@@ -101,7 +104,6 @@ function getRoutes() {
         contentType: "application/json",
         dataType: 'json',
         success: function (data, textStatus, errorThrown) {
-            // console.log(data);
             routes = data;
             routeNumList = [];
             jQuery.each(data, function (k, v) {
@@ -110,16 +112,13 @@ function getRoutes() {
                     "busRouteNumber": data[k].busRouteNumber
                 });
             });
-            // console.log(routeNumList);
-            // console.log(getRoute(routeNumList[0]));
+
             $('#routeList').empty();
             routeNumList.forEach((item, index) => {
                 var routeOption = ('<option value="' + item.busRouteId + '">' + item.busRouteNumber + '</option>');
-                // console.log(data[k].id + ")" + data[k].name + " - Rs." + data[k].price);
                 $('#routeList').append(routeOption);
             });
             setCurrentRoute();
-
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -153,7 +152,6 @@ function setCurrentRoute() {
 
     currentHaltNum = 0;
     $("#haltNum").text(currentHaltNum + 1);
-    console.log(currentRoute);
     getCurrentHaltDetails(currentHaltNum);
 };
 
@@ -208,9 +206,7 @@ function incHaltNum() {
     if (currentHaltName.length > 0) {
         currentHaltNum = parseInt($("#haltNum").text()) - 1;
         if ((currentHaltNum) >= currentRoute.haltList.length) {
-            console.log(currentHaltDetails);
             currentRoute.haltList.push(currentHaltDetails);
-        } else {
         }
         currentHaltNum++;
 
@@ -250,7 +246,7 @@ function getCurrentHaltDetails(index) {
 
 };
 
-function backRoute() {
+function logDataToConsole() {
     console.log("currentRoute");
     console.log(currentRoute);
 
@@ -259,13 +255,9 @@ function backRoute() {
 
     console.log("routes");
     console.log(routes);
-
 }
 
 function saveRoute() {
-    console.log("currentRoute");
-    console.log(currentRoute);
-
     console.log("currentRoute");
     jQuery.ajax({
         url: "http://localhost:9090/route/add",
@@ -274,21 +266,19 @@ function saveRoute() {
         dataType: 'json',
         data: JSON.stringify(currentRoute),
         success: function (data, textStatus, errorThrown) {
-            console.log(data);
-            if(data.active){
+            if (data.active) {
                 alert("Route added successfully")
-            }else{
+            } else {
                 alert("Route deleted successfully")
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("ERROR!");
-            if(currentRoute.active==true){
+            if (currentRoute.active == true) {
                 alert("Failed to add route")
-            }else{
+            } else {
                 alert("Failed to delete route")
             }
-            
         },
         timeout: 120000,
     });
@@ -310,7 +300,6 @@ function updateFareList() {
                 "incrementPercentage": incPercentage
             }),
             success: function (data, textStatus, errorThrown) {
-                console.log(data);
                 alert("Fare list updated successfully")
             },
             error: function (jqXHR, textStatus, errorThrown) {
