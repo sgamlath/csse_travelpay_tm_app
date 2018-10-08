@@ -34,11 +34,12 @@
                                         </div>
                                 </div>
 
-                                <div class="row">
+                                <!-- // Not in the current scope -->
+                                <!-- <div class="row">
                                         <div class="form-group" style="margin-left: auto; margin-right: auto;">
                                                 <button id="btnCancelRoute_add" class="btn btn-primary" style="width: 200px;" onclick="showAddFareList()">Add Fare List</button>
                                         </div>
-                                </div>
+                                </div> -->
 
                                 <div class="row">
                                         <div class="form-group" style="margin-left: auto; margin-right: auto;">
@@ -78,7 +79,7 @@
 
                                 <div class="form-group" style="display: flex;justify-content: center;">
 
-                                        <button id="btnCancelRoute_add" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
+                                        <button id="btnCancelRoute_add" class="btn btn-primary" style="margin: 10px;width: 80px;" onclick="backToMenu()">Back</button>
                                         <button id="btnAddRoute" class="btn btn-success" style="margin: 10px;width: 80px;" onclick="addNewRoute()">Save</button>
 
                                 </div>
@@ -155,8 +156,9 @@
 
                                 <div class="form-group" style="display: flex;justify-content: center;">
 
-                                        <button id="btnCancelRoute" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
-                                        <button id="btnAddRoute" class="btn btn-success" style="margin: 10px;width: 80px;" onclick="saveRoute()">Save</button>
+                                        <button id="btnCancelRoute" class="btn btn-primary" style="margin: 10px;width: 120px;" onclick="backToMenu()">Back</button>
+                                        <button id="btnDeleteRoute" class="btn btn-danger" style="margin: 10px;width: 120px;" onclick="deleteRoute()">Delete Route</button>
+                                        <button id="btnAddRoute" class="btn btn-success" style="margin: 10px;width: 120px;" onclick="saveRoute()">Save Route</button>
 
                                 </div>
 
@@ -169,12 +171,42 @@
         </div>
 
         <div id="addFareList" class="container" style="display:none;">
-                        <button id="btnCancelRoute_add" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
+                <button id="btnCancelRoute_add" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
 
         </div>
 
         <div id="updateFareList" class="container" style="display:none;">
-                        <button id="btnCancelRoute_add" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
+                <div class="row">
+                        <div class="col-lg-3"></div>
+
+                        <div id="route" class="col-lg-6">
+                                <div class="row">
+                                        <div class="col-lg-10">
+                                                <h2 id="routeHeader">Update Fare List</h2>
+                                        </div>
+                                </div>
+
+                                <div class="form-group">
+                                        <label>Minimum Fare</label>
+                                        <input class="form-control" type="number" id="minFare" />
+
+                                </div>
+
+                                <div class="form-group">
+                                        <label>Increment Percentage</label>
+                                        <input class="form-control" type="number" id="incPercentage" />
+                                </div>
+
+                                <div class="form-group" style="display: flex;justify-content: center;">
+
+                                        <button id="btnCancelRoute_add" class="btn btn-danger" style="margin: 10px;width: 80px;" onclick="backToMenu()">Cancel</button>
+                                        <button id="btnAddRoute" class="btn btn-success" style="margin: 10px;width: 80px;" onclick="updateFareList()">Save</button>
+
+                                </div>
+
+                        </div>
+
+                </div>
 
         </div>
 

@@ -10,6 +10,7 @@ function showAddRoutes() {
     $('#updateFareList').hide();
 }
 function showUpdateRoutes() {
+    getRoutes();
     $('#main').hide();
     $('#addRoutes').hide();
     $('#updateRoutes').show();
@@ -79,6 +80,14 @@ function addNewRoute() {
     initializeData();
 }
 
+function deleteRoute() {
+    currentRoute.active = false;
+    saveRoute();
+
+    initializeData();
+    getRoutes();
+}
+
 function getRoutes() {
     console.log("getRoutes()");
 
@@ -87,7 +96,7 @@ function getRoutes() {
     $("#incBtn").html("Next");
 
     jQuery.ajax({
-        url: "http://localhost:9090/route/getAll",
+        url: "http://localhost:9090/route/getAllActive",
         type: "GET",
         contentType: "application/json",
         dataType: 'json',
@@ -254,6 +263,10 @@ function backRoute() {
 }
 
 function saveRoute() {
+    console.log("currentRoute");
+    console.log(currentRoute);
+
+    console.log("currentRoute");
     jQuery.ajax({
         url: "http://localhost:9090/route/add",
         type: "POST",
@@ -262,12 +275,51 @@ function saveRoute() {
         data: JSON.stringify(currentRoute),
         success: function (data, textStatus, errorThrown) {
             console.log(data);
-            alert("Route added successfully")
+            if(data.active){
+                alert("Route added successfully")
+            }else{
+                alert("Route deleted successfully")
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("ERROR!");
-            alert("Failed to add root")
+            if(currentRoute.active==true){
+                alert("Failed to add route")
+            }else{
+                alert("Failed to delete route")
+            }
+            
         },
         timeout: 120000,
     });
+}
+
+function updateFareList() {
+    let minfare = parseFloat($("#minFare").val());
+    let incPercentage = parseFloat($("#incPercentage").val());
+
+    if (minfare > 0 && incPercentage >= 0) {
+        jQuery.ajax({
+            url: "http://localhost:9090/route/updateFareList",
+            type: "POST",
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify({
+                "fareListId": "001",
+                "minFare": minfare,
+                "incrementPercentage": incPercentage
+            }),
+            success: function (data, textStatus, errorThrown) {
+                console.log(data);
+                alert("Fare list updated successfully")
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("ERROR!");
+                alert("Failed to update fare list")
+            },
+            timeout: 120000,
+        });
+    } else {
+        alert("Please enter valid amounts to update!")
+    }
 }
