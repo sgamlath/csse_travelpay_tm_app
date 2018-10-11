@@ -12,4 +12,3 @@ deploy:
   provider: heroku
   api_key:
     secure: 9c03c7d2-1fdf-455b-ab96-3f2e94771d15
-  skip_cleanup: true
